@@ -25,69 +25,71 @@ const posts = (await getCollection('blog'))
 		
 		<!-- Hero Section -->
 		<section class="hero">
-			<div class="hero-container">
-				<div class="hero-content">
-					<h1 class="hero-title">
-						Optimize Your Sleep.<br />
-						<span class="gradient-text">Upgrade Your Life.</span>
-					</h1>
-					<p class="hero-subtitle">
-						Science-backed sleep biohacking for high performers. Discover the tools, techniques, and technology to unlock peak performance through better sleep.
-					</p>
-					<div class="hero-cta">
-						<a href="/blog" class="btn btn-primary btn-large">Start Optimizing</a>
-						<a href="/blog" class="btn btn-secondary btn-large">Browse Reviews</a>
-					</div>
-					<p class="hero-trust">Trusted by 50,000+ biohackers</p>
+			<div class="hero-content container">
+				<h1>
+					Optimize Your Sleep.<br />
+					<span class="gradient-text">Upgrade Your Life.</span>
+				</h1>
+				<p class="hero-subtitle">
+					Science-backed sleep biohacking for high performers. Discover the tools, techniques, and technology to unlock peak performance through better sleep.
+				</p>
+				<div class="hero-buttons">
+					<a href="/blog" class="btn-primary">Start Optimizing</a>
+					<a href="/blog" class="btn-secondary">Browse Reviews</a>
 				</div>
+				<p class="hero-trust">Trusted by 50,000+ biohackers</p>
 			</div>
 		</section>
 
 		<!-- Featured Categories -->
-		<section class="categories">
+		<section class="section">
 			<div class="container">
-				<h2 class="section-title text-center">Explore by Category</h2>
-				<div class="grid grid-3">
+				<div class="section-header">
+					<h2>Explore by Category</h2>
+				</div>
+				<div class="category-grid">
 					<a href="/blog" class="category-card">
-						<div class="category-icon">📊</div>
+						<span class="category-icon">📊</span>
 						<h3>Sleep Trackers</h3>
 						<p>Compare Oura, WHOOP, and other wearables for accurate sleep data</p>
-						<span class="category-link">Explore →</span>
+						<span class="link-arrow">Explore</span>
 					</a>
 					<a href="/blog" class="category-card">
-						<div class="category-icon">🌡️</div>
+						<span class="category-icon">🌡️</span>
 						<h3>Temperature Control</h3>
 						<p>Cooling mattresses, ChiliPad, and optimal sleep temperature solutions</p>
-						<span class="category-link">Explore →</span>
+						<span class="link-arrow">Explore</span>
 					</a>
 					<a href="/blog" class="category-card">
-						<div class="category-icon">💊</div>
+						<span class="category-icon">💊</span>
 						<h3>Supplements</h3>
 						<p>Evidence-based supplements for sleep quality and recovery</p>
-						<span class="category-link">Explore →</span>
+						<span class="link-arrow">Explore</span>
 					</a>
 				</div>
 			</div>
 		</section>
 
 		<!-- Latest Articles -->
-		<section class="articles">
+		<section class="section section-alt">
 			<div class="container">
-				<h2 class="section-title text-center">Latest Guides</h2>
-				<div class="grid grid-2">
+				<div class="section-header">
+					<h2>Latest Guides</h2>
+				</div>
+				<div class="article-grid">
 					{posts.map((post) => (
 						<article class="article-card">
-							<a href={`/blog/${post.slug}/`} class="article-link">
+							<div class="article-image">
+								<span class="article-tag">GUIDE</span>
+							</div>
+							<div class="article-content">
 								<div class="article-meta">
-									<span class="article-category">GUIDE</span>
-									<span class="article-date">
-										<FormattedDate date={post.data.pubDate} />
-									</span>
+									<FormattedDate date={post.data.pubDate} />
 								</div>
-								<h3 class="article-title">{post.data.title}</h3>
+								<h3>{post.data.title}</h3>
 								<p class="article-excerpt">{post.data.description}</p>
-								<span class="article-read-more">Read Article →</span>
-							</a>
+								<a href={`/blog/${post.slug}/`} class="link-arrow">Read Article</a>
+							</div>
 						</article>
 					))}
 				</div>
@@ -95,17 +97,15 @@ const posts = (await getCollection('blog'))
 		</section>
 
 		<!-- Newsletter CTA -->
-		<section class="newsletter" id="newsletter">
-			<div class="container">
-				<div class="newsletter-content">
-					<h2>Get Weekly Sleep Optimization Hacks</h2>
-					<p>Join 10,000+ biohackers getting data-driven sleep tips every week</p>
-					<form class="newsletter-form">
-						<input type="email" placeholder="your@email.com" class="newsletter-input" />
-						<button type="submit" class="btn btn-primary">Subscribe</button>
-					</form>
-					<p class="newsletter-trust">No spam. Unsubscribe anytime.</p>
-				</div>
+		<section class="newsletter-section" id="newsletter">
+			<div class="newsletter-content container">
+				<h2>Get Weekly Sleep Optimization Hacks</h2>
+				<p>Join 10,000+ biohackers getting data-driven sleep tips every week</p>
+				<form class="newsletter-form">
+					<input type="email" placeholder="your@email.com" class="newsletter-input" />
+					<button type="submit" class="newsletter-button">Subscribe</button>
+				</form>
+				<p class="newsletter-disclaimer">No spam. Unsubscribe anytime.</p>
 			</div>
 		</section>
 
@@ -116,244 +116,365 @@ const posts = (await getCollection('blog'))
 <style>
 	/* Hero Section */
 	.hero {
-		background: linear-gradient(135deg, var(--color-bg-primary) 0%, #1a1f3a 50%, var(--color-accent-purple) 100%);
-		padding: 120px 0 80px;
 		position: relative;
+		padding: var(--space-24) 0 var(--space-20);
+		text-align: center;
 		overflow: hidden;
 	}
 
-	.hero::before {
+	.hero-content {
+		max-width: 900px;
+		position: relative;
+		z-index: 10;
+	}
+
+	.hero h1 {
+		font-size: var(--text-6xl);
+		margin-bottom: var(--space-6);
+		background: linear-gradient(135deg, #FFFFFF 0%, #E8E8E8 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.gradient-text {
+		background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.hero-subtitle {
+		font-size: var(--text-xl);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-10);
+		line-height: var(--leading-relaxed);
+	}
+
+	.hero-buttons {
+		display: flex;
+		gap: var(--space-4);
+		justify-content: center;
+		margin-bottom: var(--space-12);
+		flex-wrap: wrap;
+	}
+
+	.hero-trust {
+		font-size: var(--text-sm);
+		color: var(--color-text-tertiary);
+		margin-top: var(--space-8);
+	}
+
+	/* Section Styles */
+	.section {
+		padding: var(--space-20) 0;
+	}
+
+	.section-alt {
+		background: var(--color-bg-secondary);
+		padding: var(--space-20) 0;
+		margin: var(--space-12) 0;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--space-12);
+	}
+
+	.section-header h2 {
+		font-size: var(--text-4xl);
+		margin-bottom: var(--space-4);
+	}
+
+	/* Category Grid */
+	.category-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: var(--space-6);
+		margin: var(--space-12) 0;
+	}
+
+	.category-card {
+		background: var(--gradient-card);
+		border: 1px solid var(--color-border-subtle);
+		border-radius: var(--radius-lg);
+		padding: var(--space-8);
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+		text-decoration: none;
+		display: block;
+	}
+
+	.category-card::before {
 		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: radial-gradient(circle at 50% 50%, rgba(74,144,226,0.1) 0%, transparent 70%);
-		pointer-events: none;
-	}
-
-	.hero-container {
-		max-width: 1280px;
-		margin: 0 auto;
-		padding: 0 var(--space-lg);
-	}
-
-	.hero-content {
-		max-width: 800px;
-		margin: 0 auto;
-		text-align: center;
-		position: relative;
-		z-index: 1;
-	}
-
-	.hero-title {
-		font-size: clamp(2.5rem, 6vw, 4.5rem);
-		font-weight: 800;
-		line-height: 1.1;
-		margin-bottom: var(--space-lg);
-		letter-spacing: -0.02em;
-	}
-
-	.hero-subtitle {
-		font-size: clamp(1.125rem, 2vw, 1.375rem);
-		color: var(--color-text-secondary);
-		margin-bottom: var(--space-xl);
-		line-height: 1.6;
-	}
-
-	.hero-cta {
-		display: flex;
-		gap: var(--space-md);
-		justify-content: center;
-		flex-wrap: wrap;
-		margin-bottom: var(--space-md);
-	}
-
-	.hero-trust {
-		color: var(--color-text-muted);
-		font-size: 0.9375rem;
-		margin: 0;
-	}
-
-	/* Categories Section */
-	.categories {
-		padding: var(--space-2xl) 0;
-	}
-
-	.section-title {
-		margin-bottom: var(--space-xl);
-	}
-
-	.category-card {
-		background: var(--color-bg-secondary);
-		border: 1px solid rgba(255,255,255,0.1);
-		border-radius: var(--radius-lg);
-		padding: var(--space-xl);
-		text-align: center;
-		transition: all var(--transition-base);
-		text-decoration: none;
-		display: block;
+		background: linear-gradient(135deg, transparent 0%, rgba(74, 144, 226, 0.05) 100%);
+		opacity: 0;
+		transition: opacity 0.4s ease;
 	}
 
 	.category-card:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-lg);
-		border-color: rgba(74,144,226,0.4);
+		transform: translateY(-8px);
+		border-color: var(--color-border-emphasis);
+		box-shadow: var(--shadow-xl), var(--shadow-glow-blue);
+	}
+
+	.category-card:hover::before {
+		opacity: 1;
 	}
 
 	.category-icon {
-		font-size: 3rem;
-		margin-bottom: var(--space-md);
+		font-size: var(--text-5xl);
+		margin-bottom: var(--space-4);
+		display: block;
 	}
 
 	.category-card h3 {
 		color: var(--color-text-primary);
-		margin-bottom: var(--space-sm);
+		font-size: var(--text-2xl);
+		margin-bottom: var(--space-3);
 	}
 
 	.category-card p {
-		color: var(--color-text-muted);
-		font-size: 1rem;
-		margin-bottom: var(--space-md);
+		color: var(--color-text-tertiary);
+		line-height: var(--leading-relaxed);
+		margin-bottom: var(--space-6);
 	}
 
-	.category-link {
+	.link-arrow {
 		color: var(--color-accent-blue);
-		font-weight: 600;
-		font-size: 0.9375rem;
+		font-weight: var(--weight-medium);
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		transition: all 0.3s ease;
 	}
 
-	/* Articles Section */
-	.articles {
-		padding: var(--space-2xl) 0;
-		background: var(--color-bg-secondary);
+	.link-arrow::after {
+		content: '→';
+		transition: transform 0.3s ease;
+	}
+
+	.link-arrow:hover::after {
+		transform: translateX(4px);
+	}
+
+	/* Article Grid */
+	.article-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: var(--space-8);
+		margin: var(--space-12) 0;
 	}
 
 	.article-card {
-		background: var(--color-bg-primary);
-		border: 1px solid rgba(255,255,255,0.1);
+		background: var(--gradient-card);
+		border: 1px solid var(--color-border-subtle);
 		border-radius: var(--radius-lg);
-		padding: var(--space-xl);
-		transition: all var(--transition-base);
+		overflow: hidden;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.article-card:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-lg);
-		border-color: rgba(74,144,226,0.4);
+		transform: translateY(-6px);
+		border-color: var(--color-border-emphasis);
+		box-shadow: var(--shadow-xl);
 	}
 
-	.article-link {
-		text-decoration: none;
-		display: block;
-	}
-
-	.article-meta {
+	.article-image {
+		width: 100%;
+		height: 200px;
+		background: linear-gradient(135deg, #1a2332 0%, #2d1b4e 100%);
+		position: relative;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		margin-bottom: var(--space-md);
+		justify-content: center;
+		color: var(--color-text-tertiary);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
 	}
 
-	.article-category {
+	.article-tag {
+		position: absolute;
+		top: var(--space-4);
+		left: var(--space-4);
 		background: var(--color-accent-blue);
-		color: white;
-		padding: 4px 12px;
-		border-radius: 4px;
-		font-size: 0.75rem;
-		font-weight: 600;
+		color: var(--color-text-primary);
+		padding: var(--space-2) var(--space-4);
+		border-radius: var(--radius-full);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		text-transform: uppercase;
 		letter-spacing: 0.05em;
 	}
 
-	.article-date {
-		color: var(--color-text-muted);
-		font-size: 0.875rem;
+	.article-content {
+		padding: var(--space-6);
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
 	}
 
-	.article-title {
+	.article-meta {
+		font-size: var(--text-sm);
+		color: var(--color-text-tertiary);
+		margin-bottom: var(--space-3);
+	}
+
+	.article-card h3 {
+		font-size: var(--text-xl);
+		margin-bottom: var(--space-3);
 		color: var(--color-text-primary);
-		margin-bottom: var(--space-sm);
-		font-size: 1.5rem;
+		line-height: var(--leading-tight);
 	}
 
 	.article-excerpt {
-		color: var(--color-text-muted);
-		margin-bottom: var(--space-md);
-		font-size: 1rem;
-	}
-
-	.article-read-more {
-		color: var(--color-accent-blue);
-		font-weight: 600;
-		font-size: 0.9375rem;
+		color: var(--color-text-secondary);
+		line-height: var(--leading-relaxed);
+		margin-bottom: var(--space-4);
+		flex-grow: 1;
 	}
 
 	/* Newsletter Section */
-	.newsletter {
-		background: linear-gradient(135deg, var(--color-bg-primary) 0%, #1a1f3a 100%);
-		padding: var(--space-2xl) 0;
+	.newsletter-section {
+		background: linear-gradient(135deg, #1a2332 0%, #2d1b4e 100%);
+		padding: var(--space-20) 0;
+		margin: var(--space-24) 0;
+		border-radius: var(--radius-xl);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.newsletter-section::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		right: -50%;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle, rgba(74, 144, 226, 0.1) 0%, transparent 70%);
 	}
 
 	.newsletter-content {
 		max-width: 600px;
 		margin: 0 auto;
 		text-align: center;
+		position: relative;
+		z-index: 10;
 	}
 
 	.newsletter-content h2 {
-		margin-bottom: var(--space-sm);
+		font-size: var(--text-4xl);
+		margin-bottom: var(--space-4);
 	}
 
 	.newsletter-content > p {
-		color: var(--color-text-muted);
-		margin-bottom: var(--space-xl);
+		color: var(--color-text-secondary);
+		font-size: var(--text-lg);
+		margin-bottom: var(--space-8);
 	}
 
 	.newsletter-form {
 		display: flex;
-		gap: var(--space-sm);
-		margin-bottom: var(--space-sm);
+		gap: var(--space-4);
+		max-width: 500px;
+		margin: 0 auto var(--space-4);
 	}
 
 	.newsletter-input {
 		flex: 1;
-		padding: 14px 20px;
-		background: rgba(255,255,255,0.05);
-		border: 1px solid rgba(255,255,255,0.1);
-		border-radius: var(--radius-sm);
+		padding: var(--space-4) var(--space-6);
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid var(--color-border-subtle);
+		border-radius: var(--radius-md);
 		color: var(--color-text-primary);
-		font-size: 1rem;
+		font-size: var(--text-base);
 		font-family: var(--font-primary);
-	}
-
-	.newsletter-input::placeholder {
-		color: var(--color-text-muted);
+		transition: all 0.3s ease;
 	}
 
 	.newsletter-input:focus {
 		outline: none;
 		border-color: var(--color-accent-blue);
+		background: rgba(255, 255, 255, 0.15);
+		box-shadow: var(--shadow-glow-blue);
 	}
 
-	.newsletter-trust {
-		color: var(--color-text-muted);
-		font-size: 0.875rem;
-		margin: 0;
+	.newsletter-input::placeholder {
+		color: var(--color-text-tertiary);
 	}
 
+	.newsletter-button {
+		padding: var(--space-4) var(--space-8);
+		background: var(--gradient-button);
+		color: var(--color-bg-primary);
+		border: none;
+		border-radius: var(--radius-md);
+		font-weight: var(--weight-semibold);
+		font-size: var(--text-base);
+		cursor: pointer;
+		transition: all 0.3s ease;
+		white-space: nowrap;
+	}
+
+	.newsletter-button:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-glow-mint);
+	}
+
+	.newsletter-disclaimer {
+		font-size: var(--text-sm);
+		color: var(--color-text-tertiary);
+	}
+
+	/* Responsive */
 	@media (max-width: 768px) {
 		.hero {
-			padding: 80px 0 60px;
+			padding: var(--space-16) 0 var(--space-12);
 		}
-
-		.hero-cta {
+		
+		.hero h1 {
+			font-size: var(--text-4xl);
+		}
+		
+		.hero-subtitle {
+			font-size: var(--text-lg);
+		}
+		
+		.hero-buttons {
 			flex-direction: column;
 			align-items: stretch;
 		}
 
+		.category-grid,
+		.article-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-4);
+		}
+
 		.newsletter-form {
 			flex-direction: column;
+		}
+		
+		.newsletter-button {
+			width: 100%;
+		}
+
+		.section {
+			padding: var(--space-12) 0;
+		}
+		
+		.section-alt {
+			padding: var(--space-12) 0;
 		}
 	}
 </style>
