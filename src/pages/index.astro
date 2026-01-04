@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -22,124 +22,338 @@ const posts = (await getCollection('blog'))
 	</head>
 	<body>
 		<Header />
-		<main>
-			<style>
-				.hero {
-					text-align: center;
-					padding: 4rem 0;
-					max-width: 800px;
-					margin: 0 auto;
-				}
-				.hero h1 {
-					font-size: 3.5rem;
-					font-weight: 700;
-					line-height: 1.1;
-					margin-bottom: 1rem;
-					background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-					-webkit-background-clip: text;
-					-webkit-text-fill-color: transparent;
-					background-clip: text;
-				}
-				.tagline {
-					font-size: 1.5rem;
-					color: rgb(var(--gray-light));
-					margin-bottom: 1.5rem;
-				}
-				.hero-description {
-					color: rgb(var(--gray));
-					font-size: 1.125rem;
-					line-height: 1.6;
-					max-width: 600px;
-					margin: 0 auto 2rem;
-				}
-				.cta {
-					display: inline-block;
-					padding: 1rem 2rem;
-					background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-					color: white;
-					text-decoration: none;
-					border-radius: 8px;
-					font-weight: 600;
-					margin-top: 1rem;
-					transition: transform 0.2s;
-				}
-				.cta:hover {
-					transform: translateY(-2px);
-				}
-				.featured-posts {
-					margin-top: 4rem;
-					max-width: 1000px;
-					margin-left: auto;
-					margin-right: auto;
-				}
-				.featured-posts h2 {
-					font-size: 2rem;
-					margin-bottom: 2rem;
-					text-align: center;
-				}
-				.post-grid {
-					display: grid;
-					gap: 2rem;
-					margin-top: 2rem;
-				}
-				.post-card {
-					background: rgba(255, 255, 255, 0.05);
-					border-radius: 12px;
-					padding: 1.5rem;
-					transition: transform 0.2s, background 0.2s;
-				}
-				.post-card:hover {
-					transform: translateY(-4px);
-					background: rgba(255, 255, 255, 0.08);
-				}
-				.post-card h3 {
-					margin-top: 0.5rem;
-					font-size: 1.5rem;
-					margin-bottom: 0.5rem;
-				}
-				.post-card a {
-					color: white;
-					text-decoration: none;
-				}
-				.post-date {
-					color: rgb(var(--gray));
-					font-size: 0.875rem;
-				}
-				.post-description {
-					color: rgb(var(--gray-light));
-					margin-top: 0.5rem;
-				}
-			</style>
-
-			<div class="hero">
-				<h1>Sleep Optimized</h1>
-				<p class="tagline">Unlock Peak Performance Through Better Sleep</p>
-				<p class="hero-description">
-					Your ultimate guide to sleep biohacking and optimization. We cover the science, 
-					technology, and strategies to help you unlock peak performance and recovery through better sleep.
-				</p>
-				<a href="/blog" class="cta">Explore Guides →</a>
-			</div>
-
-			<div class="featured-posts">
-				<h2>Latest Guides</h2>
-				<div class="post-grid">
-					{
-						posts.map((post) => (
-							<div class="post-card">
-								<div class="post-date">
-									<FormattedDate date={post.data.pubDate} />
-								</div>
-								<h3>
-									<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-								</h3>
-								<p class="post-description">{post.data.description}</p>
-							</div>
-						))
-					}
+		
+		<!-- Hero Section -->
+		<section class="hero">
+			<div class="hero-container">
+				<div class="hero-content">
+					<h1 class="hero-title">
+						Optimize Your Sleep.<br />
+						<span class="gradient-text">Upgrade Your Life.</span>
+					</h1>
+					<p class="hero-subtitle">
+						Science-backed sleep biohacking for high performers. Discover the tools, techniques, and technology to unlock peak performance through better sleep.
+					</p>
+					<div class="hero-cta">
+						<a href="/blog" class="btn btn-primary btn-large">Start Optimizing</a>
+						<a href="/blog" class="btn btn-secondary btn-large">Browse Reviews</a>
+					</div>
+					<p class="hero-trust">Trusted by 50,000+ biohackers</p>
 				</div>
 			</div>
-		</main>
+		</section>
+
+		<!-- Featured Categories -->
+		<section class="categories">
+			<div class="container">
+				<h2 class="section-title text-center">Explore by Category</h2>
+				<div class="grid grid-3">
+					<a href="/blog" class="category-card">
+						<div class="category-icon">📊</div>
+						<h3>Sleep Trackers</h3>
+						<p>Compare Oura, WHOOP, and other wearables for accurate sleep data</p>
+						<span class="category-link">Explore →</span>
+					</a>
+					<a href="/blog" class="category-card">
+						<div class="category-icon">🌡️</div>
+						<h3>Temperature Control</h3>
+						<p>Cooling mattresses, ChiliPad, and optimal sleep temperature solutions</p>
+						<span class="category-link">Explore →</span>
+					</a>
+					<a href="/blog" class="category-card">
+						<div class="category-icon">💊</div>
+						<h3>Supplements</h3>
+						<p>Evidence-based supplements for sleep quality and recovery</p>
+						<span class="category-link">Explore →</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Latest Articles -->
+		<section class="articles">
+			<div class="container">
+				<h2 class="section-title text-center">Latest Guides</h2>
+				<div class="grid grid-2">
+					{posts.map((post) => (
+						<article class="article-card">
+							<a href={`/blog/${post.slug}/`} class="article-link">
+								<div class="article-meta">
+									<span class="article-category">GUIDE</span>
+									<span class="article-date">
+										<FormattedDate date={post.data.pubDate} />
+									</span>
+								</div>
+								<h3 class="article-title">{post.data.title}</h3>
+								<p class="article-excerpt">{post.data.description}</p>
+								<span class="article-read-more">Read Article →</span>
+							</a>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Newsletter CTA -->
+		<section class="newsletter" id="newsletter">
+			<div class="container">
+				<div class="newsletter-content">
+					<h2>Get Weekly Sleep Optimization Hacks</h2>
+					<p>Join 10,000+ biohackers getting data-driven sleep tips every week</p>
+					<form class="newsletter-form">
+						<input type="email" placeholder="your@email.com" class="newsletter-input" />
+						<button type="submit" class="btn btn-primary">Subscribe</button>
+					</form>
+					<p class="newsletter-trust">No spam. Unsubscribe anytime.</p>
+				</div>
+			</div>
+		</section>
+
 		<Footer />
 	</body>
 </html>
+
+<style>
+	/* Hero Section */
+	.hero {
+		background: linear-gradient(135deg, var(--color-bg-primary) 0%, #1a1f3a 50%, var(--color-accent-purple) 100%);
+		padding: 120px 0 80px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.hero::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: radial-gradient(circle at 50% 50%, rgba(74,144,226,0.1) 0%, transparent 70%);
+		pointer-events: none;
+	}
+
+	.hero-container {
+		max-width: 1280px;
+		margin: 0 auto;
+		padding: 0 var(--space-lg);
+	}
+
+	.hero-content {
+		max-width: 800px;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-title {
+		font-size: clamp(2.5rem, 6vw, 4.5rem);
+		font-weight: 800;
+		line-height: 1.1;
+		margin-bottom: var(--space-lg);
+		letter-spacing: -0.02em;
+	}
+
+	.hero-subtitle {
+		font-size: clamp(1.125rem, 2vw, 1.375rem);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-xl);
+		line-height: 1.6;
+	}
+
+	.hero-cta {
+		display: flex;
+		gap: var(--space-md);
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-bottom: var(--space-md);
+	}
+
+	.hero-trust {
+		color: var(--color-text-muted);
+		font-size: 0.9375rem;
+		margin: 0;
+	}
+
+	/* Categories Section */
+	.categories {
+		padding: var(--space-2xl) 0;
+	}
+
+	.section-title {
+		margin-bottom: var(--space-xl);
+	}
+
+	.category-card {
+		background: var(--color-bg-secondary);
+		border: 1px solid rgba(255,255,255,0.1);
+		border-radius: var(--radius-lg);
+		padding: var(--space-xl);
+		text-align: center;
+		transition: all var(--transition-base);
+		text-decoration: none;
+		display: block;
+	}
+
+	.category-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-lg);
+		border-color: rgba(74,144,226,0.4);
+	}
+
+	.category-icon {
+		font-size: 3rem;
+		margin-bottom: var(--space-md);
+	}
+
+	.category-card h3 {
+		color: var(--color-text-primary);
+		margin-bottom: var(--space-sm);
+	}
+
+	.category-card p {
+		color: var(--color-text-muted);
+		font-size: 1rem;
+		margin-bottom: var(--space-md);
+	}
+
+	.category-link {
+		color: var(--color-accent-blue);
+		font-weight: 600;
+		font-size: 0.9375rem;
+	}
+
+	/* Articles Section */
+	.articles {
+		padding: var(--space-2xl) 0;
+		background: var(--color-bg-secondary);
+	}
+
+	.article-card {
+		background: var(--color-bg-primary);
+		border: 1px solid rgba(255,255,255,0.1);
+		border-radius: var(--radius-lg);
+		padding: var(--space-xl);
+		transition: all var(--transition-base);
+	}
+
+	.article-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-lg);
+		border-color: rgba(74,144,226,0.4);
+	}
+
+	.article-link {
+		text-decoration: none;
+		display: block;
+	}
+
+	.article-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: var(--space-md);
+	}
+
+	.article-category {
+		background: var(--color-accent-blue);
+		color: white;
+		padding: 4px 12px;
+		border-radius: 4px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+	}
+
+	.article-date {
+		color: var(--color-text-muted);
+		font-size: 0.875rem;
+	}
+
+	.article-title {
+		color: var(--color-text-primary);
+		margin-bottom: var(--space-sm);
+		font-size: 1.5rem;
+	}
+
+	.article-excerpt {
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-md);
+		font-size: 1rem;
+	}
+
+	.article-read-more {
+		color: var(--color-accent-blue);
+		font-weight: 600;
+		font-size: 0.9375rem;
+	}
+
+	/* Newsletter Section */
+	.newsletter {
+		background: linear-gradient(135deg, var(--color-bg-primary) 0%, #1a1f3a 100%);
+		padding: var(--space-2xl) 0;
+	}
+
+	.newsletter-content {
+		max-width: 600px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.newsletter-content h2 {
+		margin-bottom: var(--space-sm);
+	}
+
+	.newsletter-content > p {
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-xl);
+	}
+
+	.newsletter-form {
+		display: flex;
+		gap: var(--space-sm);
+		margin-bottom: var(--space-sm);
+	}
+
+	.newsletter-input {
+		flex: 1;
+		padding: 14px 20px;
+		background: rgba(255,255,255,0.05);
+		border: 1px solid rgba(255,255,255,0.1);
+		border-radius: var(--radius-sm);
+		color: var(--color-text-primary);
+		font-size: 1rem;
+		font-family: var(--font-primary);
+	}
+
+	.newsletter-input::placeholder {
+		color: var(--color-text-muted);
+	}
+
+	.newsletter-input:focus {
+		outline: none;
+		border-color: var(--color-accent-blue);
+	}
+
+	.newsletter-trust {
+		color: var(--color-text-muted);
+		font-size: 0.875rem;
+		margin: 0;
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			padding: 80px 0 60px;
+		}
+
+		.hero-cta {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.newsletter-form {
+			flex-direction: column;
+		}
+	}
+</style>
