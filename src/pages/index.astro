@@ -7,7 +7,10 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
 const posts = (await getCollection('blog'))
-	.filter(post => !post.slug.includes('first-post') && !post.slug.includes('second-post') && !post.slug.includes('third-post') && !post.slug.includes('markdown-style-guide') && !post.slug.includes('using-mdx'))
+	.filter(post => {
+		const slug = post.slug || '';
+		return !slug.includes('first-post') && !slug.includes('second-post') && !slug.includes('third-post') && !slug.includes('markdown-style-guide') && !slug.includes('using-mdx');
+	})
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 ---
